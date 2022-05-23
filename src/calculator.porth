@@ -1,0 +1,76 @@
+include "std.porth"
+
+proc ask_numbers -- int int in 
+    memory number1 256 end
+    memory num1_len sizeof(int) end
+    memory number2 256 end
+    memory num2_len sizeof(int) end
+    memory hold 1 end
+    1 hold stdin read drop  
+    
+
+    "Input x = " puts
+    256 number1 stdin read num1_len !64
+    "Input y = " puts
+    256 number2 stdin read num2_len !64
+    
+    num1_len @64 number1 try-parse-int
+   
+     let x ook in 
+        x number1 !64
+    end
+    
+    num2_len @64 number2 try-parse-int
+    let y ok in 
+        y number2 !64
+    end
+    
+    number1 @64 number2 @64
+end
+
+proc main in    
+    memory option 1 end
+    memory option_int sizeof(int) end
+    "Select an option:\n" puts
+    "[1] Sum\n" puts
+    "[2] Subtract\n" puts
+    "[3] Multiply\n" puts
+    "[4] Divide\n" puts
+    "Enter: " puts
+    
+    1 option stdin read  
+    option try-parse-int
+    
+    let x ok in 
+        ok if
+            x option_int !64
+        else
+            "The input is not a number\n" puts
+             0 1 - exit
+        end
+    end    
+    
+    option_int @64 1 = if 
+       ask_numbers
+        let x y in 
+            "The result is: " puts x y + puti "\n" puts
+        end 
+    else option_int @64 2 = if*
+        ask_numbers
+        let x y in 
+            "The result is: " puts x y - puti "\n" puts
+        end
+    else option_int @64 3 = if*
+        ask_numbers
+        let x y in 
+            "The result is: " puts x y * puti "\n" puts
+        end
+    else option_int @64 4 = if*
+        ask_numbers
+        let x y in
+            "The result is: " puts x y / puti "\n" puts
+        end
+    else
+        "Option invalid!!!" puts 
+    end 
+end

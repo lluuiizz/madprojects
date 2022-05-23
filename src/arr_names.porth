@@ -1,0 +1,36 @@
+include "std.porth"
+
+proc read_name ptr int -- int in            //  This function is to get string and put into an specify pointer
+                                            //  The first argument is the ptr to write, the second is an max_length of the string and 
+                                            //  The third argument is the indx of the ptr where will start to write
+                                            //  If the third argument is 0, the procedure will read the input until reach the limit 
+                                            //  And store each letter in the index range 0 to limit,
+                                            //  Third argument 3, then range (3 to limit) 
+    "Write a name: " puts
+    swap stdin read 
+end
+
+proc main in
+    const PERSON_MAX_LENGTH 30 end
+    const PERSON_MAX_QUANTITY 10 end
+    memory people_counter sizeof(int) end 
+    memory person_names PERSON_MAX_LENGTH PERSON_MAX_QUANTITY * end
+    memory length sizeof(int) end
+
+    "Escreva o nome de " puts PERSON_MAX_QUANTITY puti " pessoas:\n" puts 
+    0 length !64
+    person_names PERSON_MAX_LENGTH read_name length @64 + length !64
+    1 people_counter !64
+    
+
+    while people_counter @64 PERSON_MAX_QUANTITY < do
+
+        person_names length @64 1 + ptr+ PERSON_MAX_LENGTH read_name length @64 + length !64
+        
+        people_counter @64 1 + people_counter !64
+    end
+    
+    PERSON_MAX_LENGTH PERSON_MAX_QUANTITY * person_names stdout write drop
+end
+
+
