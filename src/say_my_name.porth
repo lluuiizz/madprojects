@@ -1,0 +1,39 @@
+include "std.porth"
+
+const i64_size sizeof(int) end        //  Const to hold up the sizeof an integer
+
+memory name 256 end                    //Define a memory label of 256 bytes
+memory name_length i64_size end       //Define a name_length who will hold up the
+                                     //length of the name
+memory i i64_size end               //  Future iterator variable 
+
+proc main in
+    "Insert your name here: " puts
+    256 name stdin read     //Read the stdinput, this returns the len of the 
+                            //string in the top of stack
+    name_length !64         //Assign the value in the top of the stack to 
+                            //name_length 
+    
+    0 i !64     //  Assign 0 to i 
+    
+    while i @64 name_length @64 < do    //  This loop will execute while i be 
+                                        //less than name_length
+        
+        i @64 dup name stdout write drop    //This misterious line store the 
+                                            //value of i in the top of the stack,
+                                            //duplicates, and uses as the length
+                                            // of the string to be printed 
+                                            //(write int ptr file_no)
+                                            //To finish the value of i who was 
+                                            //stored in the top of the stack gets
+                                            // dropped 
+        "\n" puts   
+        1 + i !64   //If you paid attetion knows that in the top of the stack 
+                    //still has the value of i, so i is assigned to i + 1 and the
+                    // loop returns
+    end 
+
+end
+
+
+

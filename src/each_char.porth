@@ -1,0 +1,36 @@
+include "std.porth"
+
+const MAX_SIZE 256 end
+
+memory input MAX_SIZE end
+memory input_length sizeof(int) end
+memory i sizeof(int) end
+memory index sizeof(int) end
+memory max_string sizeof(int) end
+memory last 8 end
+memory curr 8 end
+
+proc main in 
+    "Input something: " puts
+    MAX_SIZE input stdin read
+    input_length !64
+    0 i !64
+    
+
+    input_length @64 1 - max_string !64
+    
+    while i @64 max_string @64 2 / < do
+        max_string @64 1 - i @64 - index !64
+        input index @64 ptr+ @8 last !8
+        input i @64 ptr+ @8 curr !8
+        
+        last @8 input i @64 ptr+ !8
+        curr @8 input index @64 ptr+ !8
+        
+
+        1 i @64 + i !64
+    end
+
+    input_length @64 input stdout write drop
+
+end    
